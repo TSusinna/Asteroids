@@ -9,6 +9,7 @@ class Player(CircleShape):
         self.position = pygame.Vector2(x, y)
         self.radius = radius
         self.rotation = 0
+        self.shoot_cooldown_timer = 0
     
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -37,6 +38,11 @@ class Player(CircleShape):
             self.move(dt)
         if keys[pygame.K_s]:
             self.move(dt)
+        # Se verifica si la tecla de disparo está presionada
+
+        if self.shoot_cooldown_timer > 0:
+            self.shoot_cooldown_timer -= dt
+            # Se reduce el temporizador de recarga de disparo
 
     def move(self, dt):
         keys = pygame.key.get_pressed()
@@ -49,8 +55,12 @@ class Player(CircleShape):
             self.position -= forward * PLAYER_SPEED * dt
         
     def shoot(self):
+        if self.shoot_cooldown_timer > 0:
+            return
+        # Se verifica si el temporizador de recarga de disparo es mayor que 0
         shot = Shot(self.position.x, self.position.y)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * SHOT_SPEED
+        self.shoot_cooldown_timer = PLAYER_BULLET_COOLDOWN
         # Se crea una instancia de la clase Shot con la posición y velocidad dadas
         # Se asigna una velocidad al disparo en la dirección en la que está mirando el jugador
 

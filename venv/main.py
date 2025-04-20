@@ -58,7 +58,15 @@ def main():
                 print("Game Over!")
                 pygame.quit()
                 exit()
-        # Se verifica si el jugador ha colisionado con algún asteroide
+        # Se verifica si el jugador ha colisionado con algún asteroids
+
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.is_colliding(shot):
+                    print("Asteroid destroyed!")
+                    asteroid.split()
+                    shot.kill()
+        # Se verifica si un disparo ha colisionado con un asteroide
 
 if __name__ == "__main__":
     main()
