@@ -26,14 +26,15 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
     # Se crea una instancia de la clase Player en el centro de la pantalla
 
-    dt = 0
-    asteroid_field = AsteroidField()
-    # Se inicializa el tiempo delta (dt) a 0
-    # Se crea una instancia de la clase AsteroidField para generar asteroides
+    dt = 0     # Se inicializa el tiempo delta (dt) a 0
+    asteroid_field = AsteroidField()     # Se crea una instancia de la clase AsteroidField para generar asteroides
+    font = pygame.font.Font(None, 36)     # Se carga una fuente para mostrar el puntaje en la pantalla
+    global SCORE # Se define una variable global SCORE para almacenar el puntaje del jugador
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                SCORE = 0
                 pygame.quit()
                 exit()
             # Se verifica si se ha cerrado la ventana y se sale del programa
@@ -44,8 +45,12 @@ def main():
         screen.fill((0, 0, 0)) #También puede usarse "black"
         for object in drawable:
             object.draw(screen)
-        pygame.display.flip()
         # Se dibujan los objetos en el grupo drawable en la pantalla
+
+        score_text = font.render(f"Score: {SCORE}", True, (255, 255, 255))
+        screen.blit(score_text, (10, 10))
+        pygame.display.flip()
+        # Se dibuja el texto del puntaje en la pantalla en la posición (10, 10)
         # Se actualiza la pantalla
 
         dt = clock.tick(60) / 1000
@@ -54,6 +59,7 @@ def main():
         for asteroid in asteroids:
             if player.is_colliding(asteroid):
                 print("Game Over!")
+                SCORE = 0
                 pygame.quit()
                 exit()
         # Se verifica si el jugador ha colisionado con algún asteroids
@@ -64,9 +70,13 @@ def main():
                     print("Asteroid destroyed!")
                     asteroid.split()
                     shot.kill()
+                    SCORE += 1
         # Se verifica si un disparo ha colisionado con un asteroide
         # Si es así, se destruye el asteroide y el disparo
         # Se divide el asteroide en dos más pequeños
+        # Se incrementa el puntaje
+
+
 
 if __name__ == "__main__":
     main()
