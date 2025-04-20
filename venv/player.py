@@ -10,6 +10,8 @@ class Player(CircleShape):
         self.radius = radius
         self.rotation = 0
         self.shoot_cooldown_timer = 0
+        # Inicializa la posición, radio y rotación del jugador
+        # Inicializa el contador de cooldown a 0
     
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -18,12 +20,16 @@ class Player(CircleShape):
         b = self.position - forward * self.radius - right
         c = self.position - forward * self.radius + right
         return [a, b, c]
+    # Se define un método que devuelve una lista de puntos que forman un triángulo
+    # El triángulo representa la forma del jugador y se calcula utilizando la posición, rotación y radio del jugador
     
     def draw(self, screen):
-        pygame.draw.polygon(screen, (255,255,255), self.triangle(), 2)
+        pygame.draw.polygon(screen, ("green"), self.triangle(), 2)
+        # Dibuja un triángulo en la pantalla utilizando los puntos devueltos por el método triangle
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
+        # Se actualiza la rotación del jugador multiplicando la velocidad de giro por el tiempo delta (dt)
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -53,6 +59,8 @@ class Player(CircleShape):
         if keys[pygame.K_s]:
             forward = pygame.Vector2(0, 1).rotate(self.rotation)
             self.position -= forward * PLAYER_SPEED * dt
+        # Se verifica si la tecla de movimiento está presionada
+        # Se calcula la dirección hacia adelante en función de la rotación del jugador
         
     def shoot(self):
         if self.shoot_cooldown_timer > 0:
@@ -70,6 +78,7 @@ class Shot(CircleShape):
 
     def draw(self, screen):
         pygame.draw.circle(screen, (255, 0, 0), self.position, self.radius, 2)
+        # Dibuja un círculo rojo en la pantalla con la posición y radio del disparo
 
     def update(self, dt):
         self.position += self.velocity * dt

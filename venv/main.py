@@ -10,6 +10,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     # Se inicia pygame y se define el tamaño de la pantalla utilizando las constantes definidas en constants.py
+    # Se crea un objeto de reloj para controlar la velocidad de fotogramas
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -19,11 +20,8 @@ def main():
     Shot.containers = (shots, updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = updatable
-    # Se crean grupos de sprites para objetos actualizables y dibujables
-    # Se asigna la clase Player a los grupos de sprites para que se puedan actualizar y dibujar
-    # Se asigna la clase Shot a los grupos de sprites para que se puedan actualizar y dibujar
-    # Se asigna la clase Asteroid a los grupos de sprites para que se puedan actualizar y dibujar
-    # Se asigna la clase AsteroidField a los grupos de sprites para que se puedan actualizar
+    # Se crean grupos de sprites para objetos actualizables y dibujables. Luego se asignan las clases a los grupos correspondientes de cada una
+
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
     # Se crea una instancia de la clase Player en el centro de la pantalla
@@ -67,6 +65,8 @@ def main():
                     asteroid.split()
                     shot.kill()
         # Se verifica si un disparo ha colisionado con un asteroide
+        # Si es así, se destruye el asteroide y el disparo
+        # Se divide el asteroide en dos más pequeños
 
 if __name__ == "__main__":
     main()
