@@ -47,3 +47,21 @@ class Player(CircleShape):
         if keys[pygame.K_s]:
             forward = pygame.Vector2(0, 1).rotate(self.rotation)
             self.position -= forward * PLAYER_SPEED * dt
+        
+    def shoot(self):
+        shot = Shot(self.position.x, self.position.y)
+        shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * SHOT_SPEED
+        # Se crea una instancia de la clase Shot con la posición y velocidad dadas
+        # Se asigna una velocidad al disparo en la dirección en la que está mirando el jugador
+
+class Shot(CircleShape):
+    def __init__(self, x, y):
+        super().__init__(x, y, SHOT_RADIUS)
+
+    def draw(self, screen):
+        pygame.draw.circle(screen, (255, 0, 0), self.position, self.radius, 2)
+
+    def update(self, dt):
+        self.position += self.velocity * dt
+        # Se actualiza la posición del disparo según su velocidad y el tiempo transcurrido)
+        # Se dibuja el disparo en la pantalla

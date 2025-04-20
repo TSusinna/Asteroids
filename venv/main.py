@@ -1,6 +1,6 @@
 import pygame
 from constants import *
-from player import Player
+from player import Player, Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 # Se importa la librería de pygame y el contenido de necesario para usarse en este archivo
@@ -13,23 +13,25 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    Player.containers = (updatable, drawable)
-    # Se crean grupos de sprites para objetos actualizables y dibujables
-    # Se asigna la clase Player a los grupos de sprites para que se puedan actualizar y dibujar
-
+    shots = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = updatable
-    asteroid_field = AsteroidField()
-    # Se crea un grupo de asteroides y se asigna la clase Asteroid a los grupos de sprites para que se puedan actualizar y dibujar
-    # Se asigna la clase AsteroidField al grupo de sprites actualizables
-    # Se crea una instancia de la clase AsteroidField
+    # Se crean grupos de sprites para objetos actualizables y dibujables
+    # Se asigna la clase Player a los grupos de sprites para que se puedan actualizar y dibujar
+    # Se asigna la clase Shot a los grupos de sprites para que se puedan actualizar y dibujar
+    # Se asigna la clase Asteroid a los grupos de sprites para que se puedan actualizar y dibujar
+    # Se asigna la clase AsteroidField a los grupos de sprites para que se puedan actualizar
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
     # Se crea una instancia de la clase Player en el centro de la pantalla
 
     dt = 0
+    asteroid_field = AsteroidField()
     # Se inicializa el tiempo delta (dt) a 0
+    # Se crea una instancia de la clase AsteroidField para generar asteroides
 
     while True:
         for event in pygame.event.get():
@@ -50,6 +52,13 @@ def main():
 
         dt = clock.tick(60) / 1000
         # Se limita la velocidad de fotogramas a 60 FPS y se calcula el tiempo delta
+
+        for asteroid in asteroids:
+            if player.is_colliding(asteroid):
+                print("Game Over!")
+                pygame.quit()
+                exit()
+        # Se verifica si el jugador ha colisionado con algún asteroide
 
 if __name__ == "__main__":
     main()
