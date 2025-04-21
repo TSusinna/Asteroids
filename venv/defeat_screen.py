@@ -9,42 +9,46 @@ def defeat_screen(score):
     if score > high_score:
         high_score = score
         save_high_score(high_score)
-    """
-    Displays the defeat screen with the player's score and allows them to return to the main menu or quit.
-    """
+        # Guarda el nuevo puntaje más alto en el archivo
+
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     font = pygame.font.Font(None, 74)
     small_font = pygame.font.Font(None, 36)
     clock = pygame.time.Clock()
+    # Inicia pygame y crea una ventana con el tamaño definido en SCREEN_WIDTH y SCREEN_HEIGHT
+    # Crea fuentes para el texto del menú y un reloj para controlar la velocidad de fotogramas
 
     while True:
-        screen.fill((0, 0, 0))  # Black background
+        screen.fill((0, 0, 0))
 
-        # Render defeat screen text
-        game_over_text = font.render("TE MORISTE PELOTUDO JAJAJAJAJAJAJAJAA", True, (255, 0, 0))
+       
+        game_over_text = font.render("GAME OVER", True, (255, 0, 0))
         score_text = small_font.render(f"Your Score: {score}", True, (255, 255, 255))
         restart_text = small_font.render("Press ENTER to Restart", True, (255, 255, 255))
         quit_text = small_font.render("Press ESC to Quit", True, (255, 255, 255))
-        # Blit text to the screen
+        # Renderiza el texto del menú principal, incluyendo el título, el puntaje más alto y las instrucciones para iniciar o salir del juego
+
         screen.blit(game_over_text, (SCREEN_WIDTH // 2 - game_over_text.get_width() // 2, SCREEN_HEIGHT // 3))
         screen.blit(score_text, (SCREEN_WIDTH // 2 - score_text.get_width() // 2, SCREEN_HEIGHT // 2))
         screen.blit(restart_text, (SCREEN_WIDTH // 2 - restart_text.get_width() // 2, SCREEN_HEIGHT // 2 + 50))
         screen.blit(quit_text, (SCREEN_WIDTH // 2 - quit_text.get_width() // 2, SCREEN_HEIGHT // 2 + 100))
+        # Dibuja el texto en la pantalla en posiciones centradas
 
 
         pygame.display.flip()
 
-        # Handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:  # Restart the game
+                if event.key == pygame.K_RETURN:
                     main_menu()
-                if event.key == pygame.K_ESCAPE:  # Quit the game
+                if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
+        # Maneja los eventos de teclado y clics del mouse
 
         clock.tick(60)
