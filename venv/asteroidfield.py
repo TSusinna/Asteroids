@@ -1,3 +1,4 @@
+# Importar las bibliotecas necesarias
 import pygame
 import random
 from asteroid import Asteroid

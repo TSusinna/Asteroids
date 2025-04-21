@@ -1,42 +1,37 @@
 import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
-from save_file import load_high_score, save_high_score
+from save_file import load_high_score
 from backgrounds import Background
 
+# Esta función muestra el menú principal del juego
+# Permite al jugador ver su puntaje más alto y elegir entre iniciar el juego o salir
 def main_menu():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     font = pygame.font.Font(None, 74)
     small_font = pygame.font.Font(None, 36)
     clock = pygame.time.Clock()
-    # Inicia pygame y crea una ventana con el tamaño definido en SCREEN_WIDTH y SCREEN_HEIGHT
-    # Crea fuentes para el texto del menú y un reloj para controlar la velocidad de fotogramas
-
     high_score = load_high_score()
-    # Carga el puntaje más alto desde el archivo de guardado
+    background = Background("backgrounds/background_menu.jpg")
 
+    # Renderiza el menú principal
+    # Carga la imagen de fondo y la escala para que se ajuste a la pantalla
     while True:
-        background = Background("backgrounds/background_menu.jpg")
         screen.blit(background.surface, (0, 0))
-        # Carga una imagen de fondo y la dibuja en la pantalla
-
         title_text = font.render("ASTEROIDS", True, (255, 255, 255))
-        dev_name_text = small_font.render("By: Tomás Susinna", True, (255, 255, 255))
         high_score_text = small_font.render(f"High Score: {high_score}", True, (255, 255, 255))
         start_text = small_font.render("Press ENTER to Start", True, (255, 255, 255))
         quit_text = small_font.render("Press ESC to Quit", True, (255, 255, 255))
-        # Renderiza el texto del menú principal, incluyendo el título, el puntaje más alto y las instrucciones para iniciar o salir del juego
 
+        # Coloca el texto en la pantalla en posiciones centradas
         screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, SCREEN_HEIGHT // 3))
         screen.blit(high_score_text, (SCREEN_WIDTH // 2 - high_score_text.get_width() // 2, SCREEN_HEIGHT // 2 - 50))
         screen.blit(start_text, (SCREEN_WIDTH // 2 - start_text.get_width() // 2, SCREEN_HEIGHT // 2))
         screen.blit(quit_text, (SCREEN_WIDTH // 2 - quit_text.get_width() // 2, SCREEN_HEIGHT // 2 + 50))
-        screen.blit(dev_name_text, (SCREEN_WIDTH // 2 - dev_name_text.get_width() // 2, SCREEN_HEIGHT // 2 + 100))
-        # Dibuja el texto en la pantalla en posiciones centradas
 
         pygame.display.flip()
 
-        # Handle events
+        # Maneja los eventos de teclado
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -47,6 +42,5 @@ def main_menu():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
-        # Maneja los eventos de teclado y clics del mouse
 
         clock.tick(60)
