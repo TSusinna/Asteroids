@@ -1,2 +1,25 @@
+# Virtual environment
 venv/
+
+# Python cache files
+*.pyc
 __pycache__/
+
+# Save files
+high_score.txt
+
+# Logs
+*.log
+
+# IDE specific files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
