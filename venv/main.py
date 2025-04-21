@@ -3,6 +3,9 @@ from constants import *
 from player import Player, Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from menu import main_menu
+from defeat_screen import defeat_screen
+from save_file import load_high_score, save_high_score
 # Se importa la librería de pygame y el contenido de necesario para usarse en este archivo
 
 def main():
@@ -58,8 +61,7 @@ def main():
 
         for asteroid in asteroids:
             if player.is_colliding(asteroid):
-                print("Game Over!")
-                SCORE = 0
+                defeat_screen(SCORE)
                 pygame.quit()
                 exit()
         # Se verifica si el jugador ha colisionado con algún asteroids
@@ -67,7 +69,6 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if asteroid.is_colliding(shot):
-                    print("Asteroid destroyed!")
                     asteroid.split()
                     shot.kill()
                     SCORE += 1
@@ -79,5 +80,6 @@ def main():
 
 
 if __name__ == "__main__":
+    main_menu()
     main()
     # Si el script se ejecuta directamente, se llama a la función main()
