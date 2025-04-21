@@ -6,14 +6,26 @@ from asteroidfield import AsteroidField
 from menu import main_menu
 from defeat_screen import defeat_screen
 from save_file import load_high_score, save_high_score
+from backgrounds import Background
 # Se importa la librería de pygame y el contenido de necesario para usarse en este archivo
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    SCORE = 0
     # Se inicia pygame y se define el tamaño de la pantalla utilizando las constantes definidas en constants.py
     # Se crea un objeto de reloj para controlar la velocidad de fotogramas
+
+    background = Background("backgrounds/background_game.jpg")
+    screen.blit(background.surface, (0, 0))
+    dark_overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    dark_overlay.set_alpha(200) # Se establece la opacidad de la superficie oscura
+    dark_overlay.fill((0, 0, 0))
+    screen.blit(dark_overlay, (0, 0))
+    # Se carga una imagen de fondo y se convierte para optimizar su rendimiento
+    # Se crea una superficie oscura para superponerla al fondo y darle un efecto de oscuridad
+    # Se establece la opacidad de la superficie oscura
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -32,7 +44,6 @@ def main():
     dt = 0     # Se inicializa el tiempo delta (dt) a 0
     asteroid_field = AsteroidField()     # Se crea una instancia de la clase AsteroidField para generar asteroides
     font = pygame.font.Font(None, 36)     # Se carga una fuente para mostrar el puntaje en la pantalla
-    global SCORE # Se define una variable global SCORE para almacenar el puntaje del jugador
 
     while True:
         for event in pygame.event.get():
@@ -45,7 +56,11 @@ def main():
         updatable.update(dt)
         # Se actualizan los objetos en el grupo updatable
 
-        screen.fill((0, 0, 0)) #También puede usarse "black"
+        screen.blit(background.surface, (0, 0))
+        dark_overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        dark_overlay.set_alpha(200) # Se establece la opacidad de la superficie oscura
+        dark_overlay.fill((0, 0, 0))
+        screen.blit(dark_overlay, (0, 0))
         for object in drawable:
             object.draw(screen)
         # Se dibujan los objetos en el grupo drawable en la pantalla

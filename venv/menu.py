@@ -1,6 +1,7 @@
 import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from save_file import load_high_score, save_high_score
+from backgrounds import Background
 
 def main_menu():
     pygame.init()
@@ -15,7 +16,9 @@ def main_menu():
     # Carga el puntaje más alto desde el archivo de guardado
 
     while True:
-        screen.fill((0, 0, 0))
+        background = Background("backgrounds/background_menu.jpg")
+        screen.blit(background.surface, (0, 0))
+        # Carga una imagen de fondo y la dibuja en la pantalla
 
         title_text = font.render("ASTEROIDS", True, (255, 255, 255))
         dev_name_text = small_font.render("By: Tomás Susinna", True, (255, 255, 255))

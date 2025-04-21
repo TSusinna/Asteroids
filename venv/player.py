@@ -1,6 +1,7 @@
 import pygame
 from circleshape import CircleShape
 from constants import *
+from menu import main_menu
 
 
 class Player(CircleShape):
@@ -44,6 +45,9 @@ class Player(CircleShape):
             self.move(dt)
         if keys[pygame.K_s]:
             self.move(dt)
+        if keys[pygame.K_ESCAPE]:
+            main_menu()
+            exit()
         # Se verifica si la tecla de disparo está presionada
 
         if self.shoot_cooldown_timer > 0:

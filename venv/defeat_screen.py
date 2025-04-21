@@ -2,6 +2,7 @@ import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, HIGH_SCORE
 from menu import main_menu
 from save_file import load_high_score, save_high_score
+from backgrounds import Background
 
 def defeat_screen(score):
 
@@ -21,7 +22,9 @@ def defeat_screen(score):
     # Crea fuentes para el texto del menú y un reloj para controlar la velocidad de fotogramas
 
     while True:
-        screen.fill((0, 0, 0))
+        background = Background("backgrounds/background_menu.jpg")
+        screen.blit(background.surface, (0, 0))
+        # Carga una imagen de fondo y la dibuja en la pantalla
 
        
         game_over_text = font.render("GAME OVER", True, (255, 0, 0))
