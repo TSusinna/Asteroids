@@ -23,13 +23,13 @@ def defeat_screen(score):
     # Carga la imagen de fondo y la escala para que se ajuste a la pantalla
     # Crea un objeto Background para manejar la imagen de fondo
     while True:
-        background = Background("backgrounds/background_menu.jpg")
+        background = Background("textures/background_menu.jpg")
         screen.blit(background.surface, (0, 0))
 
         # Escribe el texto de "GAME OVER" y el puntaje en la pantalla
         game_over_text = font.render("GAME OVER", True, (255, 0, 0))
         score_text = small_font.render(f"Your Score: {score}", True, (255, 255, 255))
-        restart_text = small_font.render("Press ENTER to Restart", True, (255, 255, 255))
+        restart_text = small_font.render("Press ENTER to go to the Main Menu", True, (255, 255, 255))
         quit_text = small_font.render("Press ESC to Quit", True, (255, 255, 255))
 
         # Coloca el texto en la pantalla en posiciones centradas
@@ -47,7 +47,7 @@ def defeat_screen(score):
                 exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    main_menu()
+                    return
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()

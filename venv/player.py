@@ -50,7 +50,6 @@ class Player(CircleShape):
             self.move(dt)
         if keys[pygame.K_ESCAPE]:
             main_menu()
-            exit()
 
         # Se reduce el temporizador de recarga de disparo
         if self.shoot_cooldown_timer > 0:

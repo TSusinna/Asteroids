@@ -19,7 +19,7 @@ class Game:
         self.running = True
 
         # Carga una imagen de fondo y la escala a las dimensiones de la pantalla
-        self.background = Background("backgrounds/background_game.jpg")
+        self.background = Background("textures/background_game.jpg")
         self.background.darken()
 
         # Crea grupos de sprites para objetos actualizables y dibujables
@@ -49,7 +49,8 @@ class Game:
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.running = False
+                pygame.quit()
+                exit()
 
     # Se define un método para actualizar los objetos del juego
     # Se actualizan los objetos en el grupo de sprites actualizables

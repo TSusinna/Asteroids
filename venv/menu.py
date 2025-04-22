@@ -12,7 +12,7 @@ def main_menu():
     small_font = pygame.font.Font(None, 36)
     clock = pygame.time.Clock()
     high_score = load_high_score()
-    background = Background("backgrounds/background_menu.jpg")
+    background = Background("textures/background_menu.jpg")
 
     # Renderiza el menú principal
     # Carga la imagen de fondo y la escala para que se ajuste a la pantalla
