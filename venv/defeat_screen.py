@@ -3,6 +3,7 @@ from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from menu import main_menu
 from save_file import load_high_score, save_high_score
 from backgrounds import Background
+from sound import play_defeat_music, stop_music
 
 def defeat_screen(score):
     # Esta función se encarga de mostrar la pantalla de derrota
@@ -19,6 +20,7 @@ def defeat_screen(score):
     font = pygame.font.Font(None, 74)
     small_font = pygame.font.Font(None, 36)
     clock = pygame.time.Clock()
+    play_defeat_music()
 
     # Carga la imagen de fondo y la escala para que se ajuste a la pantalla
     # Crea un objeto Background para manejar la imagen de fondo
@@ -43,12 +45,15 @@ def defeat_screen(score):
         # Maneja los eventos de teclado
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                stop_music()
                 pygame.quit()
                 exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    stop_music()
                     return
                 if event.key == pygame.K_ESCAPE:
+                    stop_music()
                     pygame.quit()
                     exit()
 
