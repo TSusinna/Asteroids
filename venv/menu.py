@@ -2,9 +2,11 @@ import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from save_file import load_high_score
 from backgrounds import Background
+from sound import play_menu_music, stop_music
 
 # Esta función muestra el menú principal del juego
 # Permite al jugador ver su puntaje más alto y elegir entre iniciar el juego o salir
+# Comienza a reproducir la música de fondo del menú
 def main_menu():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -13,6 +15,7 @@ def main_menu():
     clock = pygame.time.Clock()
     high_score = load_high_score()
     background = Background("textures/background_menu.jpg")
+    play_menu_music()
 
     # Renderiza el menú principal
     # Carga la imagen de fondo y la escala para que se ajuste a la pantalla
@@ -34,12 +37,15 @@ def main_menu():
         # Maneja los eventos de teclado
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                stop_music()
                 pygame.quit()
                 exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    stop_music()
                     return
                 if event.key == pygame.K_ESCAPE:
+                    stop_music()
                     pygame.quit()
                     exit()
 

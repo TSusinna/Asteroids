@@ -6,6 +6,7 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from backgrounds import Background
 from defeat_screen import defeat_screen
+from sound import play_gameplay_music, stop_music
 
 class Game:
     # Inicializa pygame y crea una ventana con el tamaño definido en SCREEN_WIDTH y SCREEN_HEIGHT
@@ -17,6 +18,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.score = 0
         self.running = True
+        play_gameplay_music()
 
         # Carga una imagen de fondo y la escala a las dimensiones de la pantalla
         self.background = Background("textures/background_game.jpg")
@@ -101,3 +103,4 @@ class Game:
             self.update(dt)
             self.check_collisions()
             self.draw()
+        stop_music()
